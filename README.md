@@ -1,4 +1,4 @@
 # SkyBlock Player Anonymous
 
-A mod for the recovering SkyBlock addict.
+A relief for the recovering SkyBlock addict.
 
