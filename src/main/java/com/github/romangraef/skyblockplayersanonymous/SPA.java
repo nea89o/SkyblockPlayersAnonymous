@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.Vec3;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -31,6 +32,16 @@ public class SPA {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         EVENT_BUS.register(this);
+    }
+
+    @SubscribeEvent
+    public void onChat(ClientChatReceivedEvent event) {
+        if (event.message.getUnformattedText().replaceAll("§.", "").equals("Welcome to Hypixel SkyBlock!")) {
+            System.out.println("trying to kick you");
+            Minecraft.getMinecraft().addScheduledTask(() -> Minecraft.getMinecraft().getNetHandler().getNetworkManager().closeChannel(new ChatComponentText(
+                    "§cYou joined SkyBlock. All hope is lost."
+            )));
+        }
     }
 
     @SubscribeEvent
