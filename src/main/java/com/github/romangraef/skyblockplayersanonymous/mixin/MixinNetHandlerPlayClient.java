@@ -8,6 +8,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static com.github.romangraef.skyblockplayersanonymous.SPA.warnPlayer;
+
 @Mixin(NetHandlerPlayClient.class)
 public class MixinNetHandlerPlayClient {
     @Inject(method = "addToSendQueue", cancellable = true, at = @At("HEAD"))
@@ -16,6 +18,7 @@ public class MixinNetHandlerPlayClient {
             String message = ((C01PacketChatMessage) p_147297_1_).getMessage();
             if (message != null && (message.equalsIgnoreCase("/play sb") || message.equalsIgnoreCase("/play skyblock") || message.equalsIgnoreCase("/skyblock"))) {
                 ci.cancel();
+                warnPlayer();
             }
         }
     }
